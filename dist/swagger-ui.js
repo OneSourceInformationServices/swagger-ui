@@ -207,7 +207,7 @@ templates['main'] = template({"1":function(container,depth0,helpers,partials,dat
 
   return "<div class='info' id='api_info'>\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.info : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "</div>\n<div class='container' id='resources_container'>\n  <div class='authorize-wrapper'></div>\n\n  <ul id='resources'></ul>\n\n  <div class=\"footer\">\n    <h4 style=\"color: #999\">[ <span style=\"font-variant: small-caps\">base url</span>: "
+    + "</div>\n<div class='container' id='resources_container'>\n  <!-- <div class='authorize-wrapper'></div> -->\n\n  <ul id='resources'></ul>\n\n  <div class=\"footer\">\n    <h4 style=\"color: #999\">[ <span style=\"font-variant: small-caps\">base url</span>: "
     + ((stack1 = (helpers.escape || (depth0 && depth0.escape) || helpers.helperMissing).call(alias1,(depth0 != null ? depth0.basePath : depth0),{"name":"escape","hash":{},"data":data})) != null ? stack1 : "")
     + "\n"
     + ((stack1 = helpers["if"].call(alias1,((stack1 = (depth0 != null ? depth0.info : depth0)) != null ? stack1.version : stack1),{"name":"if","hash":{},"fn":container.program(14, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
@@ -22625,10 +22625,14 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
 
     // Render each resource
 
+    var betaEnabled = window.location.search.indexOf('beta=true') > 0;
     var resources = {};
     var counter = 0;
     for (var i = 0; i < this.model.apisArray.length; i++) {
       var resource = this.model.apisArray[i];
+      if(_.contains(resource.operation.operation.tags, 'BETA') && !betaEnabled){
+        return;
+      }
       var id = resource.name;
       while (typeof resources[id] !== 'undefined') {
         id = id + '_' + counter;
