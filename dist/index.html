@@ -97,7 +97,7 @@
       function addApiKeyAuthorization(){
         var key = encodeURIComponent($('#input_apiKey')[0].value);
         if(!key){
-          var token = _.last(window.location.search.match(/key=([^&]+)/));
+          var token = _.last(window.location.search.match(/[kK]ey=([^&]+)/));
           if(token){
             key = token;
             $('#input_apiKey').val(token);
