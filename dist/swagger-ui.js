@@ -23323,7 +23323,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     clickedLink.toggleClass('enabled');
     if(clickedLink.hasClass('enabled')){
       $('body').css('overflow', 'hidden');
-      var newHeight = $(window).height() - 60;
+      var newHeight = $(window).height() - 50;
       responseBody.height(newHeight);
       responseBody.find('pre').css('max-height', (newHeight - 30) + 'px');
       $('html, body').animate({
