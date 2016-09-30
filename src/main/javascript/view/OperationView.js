@@ -10,7 +10,8 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     'click .toggleOperation'  : 'toggleOperationContent',
     'mouseenter .api-ic'      : 'mouseEnter',
     'dblclick .curl'          : 'selectText',
-    'change [name=responseContentType]' : 'showSnippet'
+    'change [name=responseContentType]' : 'showSnippet',
+    'click .response-full-screen-toggle' : 'toggleFullScreenResposne'
   },
 
   initialize: function(opts) {
@@ -561,6 +562,27 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
   showResponse: function(response) {
     var prettyJson = JSON.stringify(response, null, '\t').replace(/\n/g, '<br>');
     $('.response_body', $(this.el)).html(_.escape(prettyJson));
+  },
+
+  // Show the response body fullscreen
+  toggleFullScreenResposne: function(e){
+    var clickedLink = $(e.currentTarget);
+    var responseBody = clickedLink.parent().find('.response_body');
+    clickedLink.toggleClass('enabled');
+    if(clickedLink.hasClass('enabled')){
+      $('body').css('overflow', 'hidden');
+      var newHeight = $(window).height() - 60;
+      responseBody.height(newHeight);
+      responseBody.find('pre').css('max-height', (newHeight - 30) + 'px');
+      $('html, body').animate({
+          scrollTop: (responseBody.offset().top - 35)
+      }, 600);
+    } else {
+      var defaultHeight = 400;
+      responseBody.animate({'height': ((defaultHeight + 15) + 'px')}, 600, function(){responseBody.css('height', 'auto');});
+      responseBody.find('pre').css('max-height', defaultHeight + 'px');
+      $('body').css('overflow', 'auto');
+    }
   },
 
   // Show error from server

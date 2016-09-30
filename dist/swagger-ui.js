@@ -350,7 +350,7 @@ templates['operation'] = template({"1":function(container,depth0,helpers,partial
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.isReadOnly : depth0),{"name":"if","hash":{},"fn":container.program(19, data, 0),"inverse":container.program(21, data, 0),"data":data})) != null ? stack1 : "")
     + "        </form>\n        <div class='response' style='display:none'>\n          <h4 class='curl'>Curl</h4>\n          <div class='block curl'></div>\n          <h4 data-sw-translate>Request URL</h4>\n          <div class='block request_url'></div>\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.showRequestHeaders : depth0),{"name":"if","hash":{},"fn":container.program(23, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "          <h4 data-sw-translate>Response Body</h4>\n          <div class='block response_body'></div>\n          <h4 data-sw-translate>Response Code</h4>\n          <div class='block response_code'></div>\n          <h4 data-sw-translate>Response Headers</h4>\n          <div class='block response_headers'></div>\n        </div>\n      </div>\n    </li>\n  </ul>\n";
+    + "          <a class=\"response-full-screen-toggle\">Toggle Fullscreen</a>\n          <h4 data-sw-translate>Response Body</h4>\n          <div class='block response_body'></div>\n          <h4 data-sw-translate>Response Code</h4>\n          <div class='block response_code'></div>\n          <h4 data-sw-translate>Response Headers</h4>\n          <div class='block response_headers'></div>\n        </div>\n      </div>\n    </li>\n  </ul>\n";
 },"useData":true});
 templates['param'] = template({"1":function(container,depth0,helpers,partials,data) {
     var stack1;
@@ -22762,7 +22762,8 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     'click .toggleOperation'  : 'toggleOperationContent',
     'mouseenter .api-ic'      : 'mouseEnter',
     'dblclick .curl'          : 'selectText',
-    'change [name=responseContentType]' : 'showSnippet'
+    'change [name=responseContentType]' : 'showSnippet',
+    'click .response-full-screen-toggle' : 'toggleFullScreenResposne'
   },
 
   initialize: function(opts) {
@@ -23313,6 +23314,27 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
   showResponse: function(response) {
     var prettyJson = JSON.stringify(response, null, '\t').replace(/\n/g, '<br>');
     $('.response_body', $(this.el)).html(_.escape(prettyJson));
+  },
+
+  // Show the response body fullscreen
+  toggleFullScreenResposne: function(e){
+    var clickedLink = $(e.currentTarget);
+    var responseBody = clickedLink.parent().find('.response_body');
+    clickedLink.toggleClass('enabled');
+    if(clickedLink.hasClass('enabled')){
+      $('body').css('overflow', 'hidden');
+      var newHeight = $(window).height() - 60;
+      responseBody.height(newHeight);
+      responseBody.find('pre').css('max-height', (newHeight - 30) + 'px');
+      $('html, body').animate({
+          scrollTop: (responseBody.offset().top - 35)
+      }, 600);
+    } else {
+      var defaultHeight = 400;
+      responseBody.animate({'height': ((defaultHeight + 15) + 'px')}, 600, function(){responseBody.css('height', 'auto');});
+      responseBody.find('pre').css('max-height', defaultHeight + 'px');
+      $('body').css('overflow', 'auto');
+    }
   },
 
   // Show error from server
