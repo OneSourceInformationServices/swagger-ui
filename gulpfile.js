@@ -62,12 +62,12 @@ function _dist() {
     .pipe(concat('swagger-ui.js'))
     .pipe(wrap('(function(){<%= contents %>}).call(this);'))
     .pipe(header(banner, { pkg: pkg }))
-    .pipe(gulp.dest('./dist'))
+    .pipe(gulp.dest('./dist/js/swagger'))
     .pipe(uglify())
     .on('error', log)
     .pipe(rename({extname: '.min.js'}))
     .on('error', log)
-    .pipe(gulp.dest('./dist'))
+    .pipe(gulp.dest('./dist/js/swagger'))
     .pipe(connect.reload());
 }
 gulp.task('dev-dist', ['lint', 'dev-copy'], _dist);
@@ -86,7 +86,7 @@ function _less() {
     ])
     .pipe(less())
     .on('error', function(err){ log(err); this.emit('end');})
-    .pipe(gulp.dest('./src/main/html/css/'))
+    .pipe(gulp.dest('./src/main/html/css/swagger/'))
     .pipe(connect.reload());
 }
 gulp.task('dev-less', _less);
@@ -101,7 +101,7 @@ function _copy() {
     .src(['./lib/**/*.{js,map}',
         './node_modules/es5-shim/es5-shim.js'
     ])
-    .pipe(gulp.dest('./dist/lib'))
+    .pipe(gulp.dest('./dist/js/swagger/lib'))
     .on('error', log);
 
   // copy `lang` for translations
@@ -114,6 +114,12 @@ function _copy() {
   gulp
     .src(['./src/main/html/**/*'])
     .pipe(gulp.dest('./dist'))
+    .on('error', log);
+
+  // copy files into css folder
+  gulp
+    .src(['./src/main/css/**/*'])
+    .pipe(gulp.dest('./dist/css'))
     .on('error', log);
 }
 gulp.task('dev-copy', ['dev-less', 'copy-local-specs'], _copy);
