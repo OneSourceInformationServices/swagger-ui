@@ -1479,8 +1479,16 @@
   font-weight: bold;
   text-decoration: none;
   color: white;
-  background: transparent url(images/avention-api-logo.png) no-repeat left center;
-  padding: 10px 0 20px 140px;
+  background: transparent url(images/onesource_api_logo.png) no-repeat left center;
+  width: 383px;
+  height: 34px;
+  display: inline-block;
+}
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .swagger-section #header #logo {
+    background: transparent url(images/onesource_api_logo_2x.png) no-repeat left center;
+    background-size: 383px 34px;
+  }
 }
 .swagger-section #header #logo .logo__img {
   display: block;
@@ -1528,7 +1536,7 @@
   position: relative;
   width: 100%;
   font-family: "Droid Sans", sans-serif;
-  margin: 15px 0;
+  margin: 10px 0 15px 0;
 }
 .swagger-section .menu-box {
   position: relative;
