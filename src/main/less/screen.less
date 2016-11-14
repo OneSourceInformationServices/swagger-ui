@@ -76,11 +76,11 @@
   }
 
   #header {
-    background-color: #DDD;
-    padding: 9px 14px 19px 14px;
-    height: 23px;
+    //background-color: #DDD;
+    padding: 9px 0 0 0;
+    height: auto;
     min-width: 775px;
-    border-bottom: 2px solid #B2B2B2;
+    //border-bottom: 2px solid #B2B2B2;
   }
 
   #input_baseUrl { width: 400px; }
@@ -174,11 +174,92 @@
     background-color: #f2dede;
   }
 
+  // Enhancement for full-screen response body toggle
   a.response-full-screen-toggle{
     cursor: pointer;
     float: right;
     margin-top: 16px;
     margin-right: 5px;
     font-size: 0.9em;
+  }
+
+  // Custom menu bar to match WP site
+  .menu-box-wrapper {
+    background: #333333;
+    border-bottom: 2px solid #437bd0;
+    min-height: 44px;
+    padding: 0;
+    float: left;
+    height: auto;
+    position: relative;
+    width: 100%;
+    font-family: "Droid Sans", sans-serif;
+    margin: 15px 0;
+  }
+  .menu-box {
+    //margin: 0 auto;
+    //padding: 0;
+    position: relative;
+    //width: 1170px;
+  }
+  .link-home {
+    background-color: #437bd0;
+  }
+  .menu-box a, .menu-box a:visited {
+    border-right: 1px solid #535353;
+    color: white;
+    display: block;
+    float: left;
+    font-size: 14px;
+    height: 44px;
+    line-height: 44px;
+    padding: 0 19px;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    &:hover{
+      background-color: #111111;
+    }
+  }
+  .menu-box a.link-home {
+    border-left: 1px solid #535353;
+    position: relative;
+    padding: 0 12px;
+  }
+  i.icon_house{
+    height: 24px;
+    width: 24px;
+    background: url(images/home_white.png) no-repeat;
+    display: block;
+    margin-top: 10px;
+  }
+  .menu-box ul {
+    list-style-type: none;
+    margin: 0;
+    position: relative;
+    text-align: left;
+    z-index: 100;
+  }
+  .menu-box ul li {
+    float: left;
+    height: 44px;
+    line-height: 44px;
+    margin: 0;
+    position: relative;
+  }
+  #header .menu-box .current-menu-item > a{
+    background-color: #437bd0;
+  }
+  .menu-box a, .menu-box a:visited {
+    border-right: 1px solid #535353;
+    color: white;
+    display: block;
+    float: left;
+    font-size: 14px;
+    height: 44px;
+    line-height: 44px;
+    padding: 0 19px;
+    text-decoration: none;
+    text-transform: uppercase;
   }
 }
