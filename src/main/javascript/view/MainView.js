@@ -93,7 +93,7 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
     for (var i = 0; i < this.model.apisArray.length; i++) {
       var resource = this.model.apisArray[i];
       if(_.contains(resource.operation.operation.tags, 'BETA') && !betaEnabled){
-        return;
+        continue;
       }
       var id = resource.name;
       while (typeof resources[id] !== 'undefined') {
